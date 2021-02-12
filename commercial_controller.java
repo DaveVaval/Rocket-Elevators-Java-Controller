@@ -236,17 +236,8 @@ class Column{
             bestElevatorInfo.put("bestScore", baseScore);
             bestElevatorInfo.put("bestElevator", elevator);
             bestElevatorInfo.put("referenceGap", Math.abs(elevator.currentFloor - floor));
-            // bestElevatorInfo.get("bestScore") = baseScore;
-            // bestElevatorInfo["bestElevator"] = elevator;
-            // bestElevatorInfo["referenceGap"] = (int)Math.Abs((double)elevator.currentFloor - floor);
+            
         }
-        // else if((int)bestElevatorInfo["bestScore"] == baseScore){
-        //     int gap = (int)Math.Abs((double)elevator.currentFloor - floor);
-        //     if((int)bestElevatorInfo["referenceGap"] > gap){
-        //         bestElevatorInfo["bestElevator"] = elevator;
-        //         bestElevatorInfo["referenceGap"] = gap;
-        //     }
-        // }
         return bestElevatorInfo;
     }
 }
@@ -458,7 +449,7 @@ public class commercial_controller {
         // System.out.println("He presses on the pannel");
         // battery.columnsList.get(3).requestElevator(54, "down");
 
-
+        // //-------------------------// Scenario 4 //------------------------------
         // // A1
         // battery.columnsList.get(0).elevatorsList.get(0).currentFloor = -4;
 

@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+
+
 // Battery Class
 // public class Battery
 // {
@@ -306,44 +309,50 @@
 
 
 
-// // Call Button class
-// public class CallButton{
-//     public int ID;
-//     public string status;
-//     public int floor;
-//     public string direction;
+// Call Button class
+class CallButton{
+    int ID;
+    String status;
+    int floor;
+    String direction;
 
-//     public CallButton(int id, string status, int floor, string direction){
-//         this.ID = id;
-//         this.status = status;
-//         this.floor = floor;
-//         this.direction = direction;
-//     }
-// }
+    public CallButton(int id, String status, int floor, String direction){
+        this.ID = id;
+        this.status = status;
+        this.floor = floor;
+        this.direction = direction;
+    }
+}
 
 
-// // Floor request button class
-// public class FloorRequestButton{
-//     public int ID;
-//     public string status;
-//     public int floor;
+// Floor request button class
+class FloorRequestButton{
+    int ID;
+    String status;
+    int floor;
 
-//     public FloorRequestButton(int id, string status, int floor){
-//         this.ID = id;
-//         this.status = status;
-//         this.floor = floor;
-//     }
-// }
+    public FloorRequestButton(int id, String status, int floor){
+        this.ID = id;
+        this.status = status;
+        this.floor = floor;
+    }
+}
 
 
 // Door class
 class Door {
     int ID;
     String status;
+    ArrayList<FloorRequestButton> testList;
 
     public Door(int id, String status){
         this.ID = id;
         this.status = status;
+        this.testList = new ArrayList<FloorRequestButton>();
+
+        for (int i = 0; i < ID; i++){
+            testList.add(new FloorRequestButton(1, "online", 10));
+        }
     }
 }
 
@@ -354,6 +363,6 @@ public class commercial_controller {
         System.out.println("-------------------------// TESTING //-----------------------------");
         Door newDoor = new Door(1, "what?");
 
-        System.out.println(newDoor.ID);
+        System.out.println(newDoor.testList);
     }
 }

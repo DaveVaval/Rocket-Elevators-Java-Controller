@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.HashMap;
 
 
 // Battery Class
@@ -110,202 +114,205 @@ import java.util.ArrayList;
 // }
 
 
-// // Column class
-// public class Column{
-//     public int ID;
-//     public string status;
-//     public int amountOfFloors;
-//     public int amountOfElevators;
-//     public bool isBasement;
-//     public List<int> servedFloors;
-//     public List<Elevator> elevatorsList;
-//     public List<CallButton> callButtonsList;
+// Column class
+class Column{
+    int ID;
+    String status;
+    int amountOfFloors;
+    int amountOfElevators;
+    Boolean isBasement;
+    ArrayList<Integer> servedFloors;
+    ArrayList<Elevator> elevatorsList;
+    ArrayList<CallButton> callButtonsList;
 
-//     public Column(int id, string status, int amountOfFloors, int amountOfElevators, List<int> servedFloors, bool isBasement){ // This is the column constructor
+    public Column(int id, String status, int amountOfFloors, int amountOfElevators, ArrayList<Integer> servedFloors, Boolean isBasement){ // This is the column constructor
         
-//         this.ID = id;
-//         this.status = status;
-//         this.amountOfFloors = amountOfFloors;
-//         this.amountOfElevators = amountOfElevators;
-//         this.isBasement = isBasement;
-//         this.elevatorsList = new List<Elevator>(){};
-//         this.callButtonsList = new List<CallButton>(){};
-//         this.servedFloors = servedFloors;
-//         createElevators(amountOfFloors, amountOfElevators);
-//         createCallButtons(amountOfFloors, isBasement);
+        this.ID = id;
+        this.status = status;
+        this.amountOfFloors = amountOfFloors;
+        this.amountOfElevators = amountOfElevators;
+        this.isBasement = isBasement;
+        this.elevatorsList = new ArrayList<Elevator>();
+        this.callButtonsList = new ArrayList<CallButton>();
+        this.servedFloors = servedFloors;
+        createElevators(amountOfFloors, amountOfElevators);
+        createCallButtons(amountOfFloors, isBasement);
 
-//     }
-
-
-//     public void createElevators(int amountOfFloors, int amountOfElevators){
-//         int elevatorID = 1;
-//         for(int i = 0; i < amountOfElevators; i++){
-//             elevatorsList.Add(new Elevator(elevatorID, "idle", amountOfFloors, 1));
-//             elevatorID++;
-//         }
-//     }
-
-//     public void createCallButtons(int amountOfFloors, bool isBasement){
-//         int callButtonID = 1;
-//         if (isBasement == true){
-//             int buttonFloor = -1;
-//             for(int i = 0; i < amountOfFloors; i++){
-//                 callButtonsList.Add(new CallButton(callButtonID, "off", buttonFloor, "up"));
-//                 buttonFloor--;
-//                 callButtonID++;
-//             }
-//         } 
-//         else{
-//             int buttonFloor = 1;
-//             for(int i = 0; i < amountOfFloors; i++){
-//                 callButtonsList.Add(new CallButton(callButtonID, "off", buttonFloor, "down"));
-//                 buttonFloor++;
-//                 callButtonID++;
-//             }
-//         }
-//     }
-
-//     // This is the function that will be called when a user wants to go back to the lobby from any given floor
-//     public void requestElevator(int userPosition, string direction){
-//         Elevator elevator = findBestElevator(userPosition, direction); // return?
-//         elevator.floorRequestList.Add(1);
-//         elevator.sortFloorList();
-//         elevator.move();
-//         elevator.openDoors();
-//         Console.WriteLine(".........");
-//         Console.WriteLine("Elevator {0} from column {1} is sent to floor: {2}", elevator.ID, this.ID, userPosition);
-//         Console.WriteLine("He enters the elevator");
-//         Console.WriteLine(".........");
-//         Console.WriteLine("Elevator reached floor: " + elevator.currentFloor);
-//         Console.WriteLine("He gets out...");
-//     }
-
-//     // This function in conjuction wwith checkElevator will return the best elevator
-//     public Elevator findBestElevator(int requestedFloor, string requestedDirection){ 
-//         Hashtable bestElevatorInfo = new Hashtable(){
-//             {"bestElevator", null},
-//             {"bestScore", 6},
-//             {"referenceGap", int.MaxValue}
-//         };
-//         if(requestedFloor == 1){
-//             foreach(Elevator elevator in elevatorsList){
-//                 if(1 == elevator.currentFloor && elevator.status == "stopped"){
-//                     bestElevatorInfo = checkElevator(1, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else if(1 == elevator.currentFloor && elevator.status == "idle"){
-//                     bestElevatorInfo = checkElevator(2, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else if(1 > elevator.currentFloor && elevator.direction == "up"){
-//                     bestElevatorInfo = checkElevator(3, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else if(1 < elevator.currentFloor && elevator.direction == "down"){
-//                     bestElevatorInfo = checkElevator(3, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else if(elevator.status == "idle"){
-//                     bestElevatorInfo = checkElevator(4, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else{
-//                     bestElevatorInfo = checkElevator(5, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//             }
-//         }
-//         else{
-//             foreach(Elevator elevator in elevatorsList){
-//                 if(requestedFloor == elevator.currentFloor && elevator.status == "idle" && requestedDirection == elevator.direction){
-//                     bestElevatorInfo = checkElevator(1, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else if(requestedFloor > elevator.currentFloor  && elevator.direction == "up" && requestedDirection == elevator.direction){
-//                     bestElevatorInfo = checkElevator(2, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else if(requestedFloor < elevator.currentFloor  && elevator.direction == "down" && requestedDirection == elevator.direction){
-//                     bestElevatorInfo = checkElevator(2, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else if(elevator.status == "stopped"){
-//                     bestElevatorInfo = checkElevator(4, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//                 else{
-//                     bestElevatorInfo = checkElevator(5, elevator, requestedFloor, bestElevatorInfo);
-//                 }
-//             }
-//         }
-//         return (Elevator)bestElevatorInfo["bestElevator"];
-//     }
-
-//     public Hashtable checkElevator(int baseScore, Elevator elevator, int floor, Hashtable bestElevatorInfo){
-//         if(baseScore < (int)bestElevatorInfo["bestScore"]){
-//             bestElevatorInfo["bestScore"] = baseScore;
-//             bestElevatorInfo["bestElevator"] = elevator;
-//             bestElevatorInfo["referenceGap"] = (int)Math.Abs((double)elevator.currentFloor - floor);
-//         }
-//         else if((int)bestElevatorInfo["bestScore"] == baseScore){
-//             int gap = (int)Math.Abs((double)elevator.currentFloor - floor);
-//             if((int)bestElevatorInfo["referenceGap"] > gap){
-//                 bestElevatorInfo["bestElevator"] = elevator;
-//                 bestElevatorInfo["referenceGap"] = gap;
-//             }
-//         }
-//         return bestElevatorInfo;
-//     }
-// }
+    }
 
 
+    public void createElevators(int amountOfFloors, int amountOfElevators){
+        int elevatorID = 1;
+        for(int i = 0; i < amountOfElevators; i++){
+            elevatorsList.add(new Elevator(elevatorID, "idle", amountOfFloors, 1));
+            elevatorID++;
+        }
+    }
 
-// // Elevator class
-// public class Elevator{
-//     public int ID;
-//     public string status;
-//     public int amountOfFloors;
-//     public string direction;
-//     public int currentFloor;
-//     public Door door;
-//     public List<int> floorRequestList; 
+    public void createCallButtons(int amountOfFloors, Boolean isBasement){
+        int callButtonID = 1;
+        if (isBasement == true){
+            int buttonFloor = -1;
+            for(int i = 0; i < amountOfFloors; i++){
+                callButtonsList.add(new CallButton(callButtonID, "off", buttonFloor, "up"));
+                buttonFloor--;
+                callButtonID++;
+            }
+        } 
+        else{
+            int buttonFloor = 1;
+            for(int i = 0; i < amountOfFloors; i++){
+                callButtonsList.add(new CallButton(callButtonID, "off", buttonFloor, "down"));
+                buttonFloor++;
+                callButtonID++;
+            }
+        }
+    }
 
-//     public Elevator(int id, string status, int amountOfFloors, int currentFloor){ // Elevator Constructor
-//         this.ID = id;
-//         this.status = status;
-//         this.amountOfFloors = amountOfFloors;
-//         this.direction = null;
-//         this.currentFloor = currentFloor;
-//         this.door = new Door(id, "closed");
-//         this.floorRequestList = new List<int>();
-//     }
+    // This is the function that will be called when a user wants to go back to the lobby from any given floor
+    public void requestElevator(int userPosition, String direction){
+        Elevator elevator = findBestElevator(userPosition, direction); // return?
+        elevator.floorRequestList.add(1);
+        elevator.sortFloorList();
+        elevator.move();
+        elevator.openDoors();
+        // Console.WriteLine(".........");
+        // Console.WriteLine("Elevator {0} from column {1} is sent to floor: {2}", elevator.ID, this.ID, userPosition);
+        // Console.WriteLine("He enters the elevator");
+        // Console.WriteLine(".........");
+        // Console.WriteLine("Elevator reached floor: " + elevator.currentFloor);
+        // Console.WriteLine("He gets out...");
+    }
 
-//     // This function will make the elevator to any given floor
-//     public void move(){
-//         while(floorRequestList.Count != 0){
-//             int destination = floorRequestList[0];
-//             status = "moving";
-//             if(currentFloor < destination){
-//                 direction = "up";
-//                 while(currentFloor < destination){
-//                     currentFloor++;
-//                 }
-//             }
-//             else if(currentFloor > destination){
-//                 direction = "down";
-//                 while(currentFloor > destination){
-//                     currentFloor--;
-//                 }
-//             }
-//             status = "idle";
-//             floorRequestList.RemoveAt(0);
-//         }
-//     }
+    // This function in conjuction wwith checkElevator will return the best elevator
+    public Elevator findBestElevator(int requestedFloor, String requestedDirection){ 
+        HashMap bestElevatorInfo = new HashMap();
+        bestElevatorInfo.put("bestElevator", null);
+        bestElevatorInfo.put("bestScore", 6);
+        bestElevatorInfo.put("referenceGap", Integer.MAX_VALUE);
+            
+        if(requestedFloor == 1){
+            for(Elevator elevator : elevatorsList){
+                if(1 == elevator.currentFloor && elevator.status == "stopped"){
+                    bestElevatorInfo = checkElevator(1, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else if(1 == elevator.currentFloor && elevator.status == "idle"){
+                    bestElevatorInfo = checkElevator(2, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else if(1 > elevator.currentFloor && elevator.direction == "up"){
+                    bestElevatorInfo = checkElevator(3, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else if(1 < elevator.currentFloor && elevator.direction == "down"){
+                    bestElevatorInfo = checkElevator(3, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else if(elevator.status == "idle"){
+                    bestElevatorInfo = checkElevator(4, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else{
+                    bestElevatorInfo = checkElevator(5, elevator, requestedFloor, bestElevatorInfo);
+                }
+            }
+        }
+        else{
+            for(Elevator elevator : elevatorsList){
+                if(requestedFloor == elevator.currentFloor && elevator.status == "idle" && requestedDirection == elevator.direction){
+                    bestElevatorInfo = checkElevator(1, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else if(requestedFloor > elevator.currentFloor  && elevator.direction == "up" && requestedDirection == elevator.direction){
+                    bestElevatorInfo = checkElevator(2, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else if(requestedFloor < elevator.currentFloor  && elevator.direction == "down" && requestedDirection == elevator.direction){
+                    bestElevatorInfo = checkElevator(2, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else if(elevator.status == "stopped"){
+                    bestElevatorInfo = checkElevator(4, elevator, requestedFloor, bestElevatorInfo);
+                }
+                else{
+                    bestElevatorInfo = checkElevator(5, elevator, requestedFloor, bestElevatorInfo);
+                }
+            }
+        }
+        return (Elevator)bestElevatorInfo.get("bestElevator");
+    }
 
-//     public void sortFloorList(){
-//        if(direction == "up"){
-//            floorRequestList.Sort();
-//        }
-//        else{
-//            floorRequestList.Reverse();
-//        }
-//     }
+    public HashMap checkElevator(int baseScore, Elevator elevator, int floor, HashMap bestElevatorInfo){
+        if(baseScore < (Integer)bestElevatorInfo.get("bestScore")){
+            bestElevatorInfo.put("bestScore", baseScore);
+            bestElevatorInfo.put("bestElevator", elevator);
+            bestElevatorInfo.put("referenceGap", Math.abs(elevator.currentFloor - floor));
+            // bestElevatorInfo.get("bestScore") = baseScore;
+            // bestElevatorInfo["bestElevator"] = elevator;
+            // bestElevatorInfo["referenceGap"] = (int)Math.Abs((double)elevator.currentFloor - floor);
+        }
+        // else if((int)bestElevatorInfo["bestScore"] == baseScore){
+        //     int gap = (int)Math.Abs((double)elevator.currentFloor - floor);
+        //     if((int)bestElevatorInfo["referenceGap"] > gap){
+        //         bestElevatorInfo["bestElevator"] = elevator;
+        //         bestElevatorInfo["referenceGap"] = gap;
+        //     }
+        // }
+        return bestElevatorInfo;
+    }
+}
 
-//     public void openDoors(){
-//         door.status = "open";
-//         door.status = "closed";
-//     }
-// }
+
+
+// Elevator class
+class Elevator{
+    int ID;
+    String status;
+    int amountOfFloors;
+    String direction;
+    int currentFloor;
+    Door door;
+    ArrayList<Integer> floorRequestList; 
+
+    public Elevator(int id, String status, int amountOfFloors, int currentFloor){ // Elevator Constructor
+        this.ID = id;
+        this.status = status;
+        this.amountOfFloors = amountOfFloors;
+        this.direction = null;
+        this.currentFloor = currentFloor;
+        this.door = new Door(id, "closed");
+        this.floorRequestList = new ArrayList<Integer>();
+    }
+
+    // This function will make the elevator move to any given floor
+    public void move(){
+        while(floorRequestList.size() != 0){
+            int destination = floorRequestList.get(0);
+            status = "moving";
+            if(currentFloor < destination){
+                direction = "up";
+                while(currentFloor < destination){
+                    currentFloor++;
+                }
+            }
+            else if(currentFloor > destination){
+                direction = "down";
+                while(currentFloor > destination){
+                    currentFloor--;
+                }
+            }
+            status = "idle";
+            floorRequestList.remove(0);
+        }
+    }
+
+    public void sortFloorList(){
+       if(direction == "up"){
+           Collections.sort(floorRequestList);
+       }
+       else{
+           Collections.reverse(floorRequestList);
+       }
+    }
+
+    public void openDoors(){
+        door.status = "open";
+        door.status = "closed";
+    }
+}
 
 
 
@@ -343,7 +350,7 @@ class FloorRequestButton{
 class Door {
     int ID;
     String status;
-    ArrayList<FloorRequestButton> testList;
+    List<FloorRequestButton> testList;
 
     public Door(int id, String status){
         this.ID = id;

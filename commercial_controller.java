@@ -360,7 +360,7 @@ public class commercial_controller {
     
     public static void main(String[] args) {
         System.out.println("-------------------------// TESTING //-----------------------------");
-        Battery battery = new Battery(1, "online", 4, 60, 6, 5);
+        // Battery battery = new Battery(1, "online", 4, 60, 6, 5);
         
         // //--------------// SCENARIO 1 //-----------------------
         // // B1

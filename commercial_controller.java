@@ -182,7 +182,7 @@ class Column{
 
     // This function in conjuction wwith checkElevator will return the best elevator
     public Elevator findBestElevator(int requestedFloor, String requestedDirection){ 
-        HashMap bestElevatorInfo = new HashMap();
+        HashMap<String, Object> bestElevatorInfo = new HashMap<String, Object>();
         bestElevatorInfo.put("bestElevator", null);
         bestElevatorInfo.put("bestScore", 6);
         bestElevatorInfo.put("referenceGap", Integer.MAX_VALUE);
@@ -231,7 +231,7 @@ class Column{
         return (Elevator)bestElevatorInfo.get("bestElevator");
     }
 
-    public HashMap checkElevator(int baseScore, Elevator elevator, int floor, HashMap bestElevatorInfo){
+    public HashMap<String, Object> checkElevator(int baseScore, Elevator elevator, int floor, HashMap<String, Object> bestElevatorInfo){
         if(baseScore < (Integer)bestElevatorInfo.get("bestScore")){
             bestElevatorInfo.put("bestScore", baseScore);
             bestElevatorInfo.put("bestElevator", elevator);

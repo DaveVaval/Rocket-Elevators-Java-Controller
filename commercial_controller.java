@@ -103,12 +103,12 @@ class Battery
         elevator.sortFloorList();
         elevator.move();
         elevator.openDoors();
-        // Console.WriteLine(".........");
-        // Console.WriteLine("Elevator {0} from column {1} is sent to lobby", elevator.ID, column.ID);
-        // Console.WriteLine("He enters the elevator");
-        // Console.WriteLine(".........");
-        // Console.WriteLine("Elevator reached floor: " + elevator.currentFloor);
-        // Console.WriteLine("He gets out...");
+        System.out.println(".........");
+        System.out.println("Elevator: " + elevator.ID + " from column: " + column.ID + "is sent to lobby");
+        System.out.println("He enters the elevator");
+        System.out.println(".........");
+        System.out.println("Elevator reached floor: " + elevator.currentFloor);
+        System.out.println("He gets out...");
     }
 }
 
@@ -175,12 +175,12 @@ class Column{
         elevator.sortFloorList();
         elevator.move();
         elevator.openDoors();
-        // Console.WriteLine(".........");
-        // Console.WriteLine("Elevator {0} from column {1} is sent to floor: {2}", elevator.ID, this.ID, userPosition);
-        // Console.WriteLine("He enters the elevator");
-        // Console.WriteLine(".........");
-        // Console.WriteLine("Elevator reached floor: " + elevator.currentFloor);
-        // Console.WriteLine("He gets out...");
+        System.out.println(".........");
+        System.out.println("Elevator: " + elevator.ID + " from column: " + this.ID + " is sent to floor: " + userPosition);
+        System.out.println("He enters the elevator");
+        System.out.println(".........");
+        System.out.println("Elevator reached floor: " + elevator.currentFloor);
+        System.out.println("He gets out...");
     }
 
     // This function in conjuction wwith checkElevator will return the best elevator
@@ -349,26 +349,60 @@ class FloorRequestButton{
 class Door {
     int ID;
     String status;
-    List<FloorRequestButton> testList;
 
     public Door(int id, String status){
         this.ID = id;
         this.status = status;
-        this.testList = new ArrayList<FloorRequestButton>();
-
-        for (int i = 0; i < ID; i++){
-            testList.add(new FloorRequestButton(1, "online", 10));
-        }
     }
 }
 
 
+
 // Main Program
 public class commercial_controller {
-    public static void main(String[] args){
-        System.out.println("-------------------------// TESTING //-----------------------------");
-        Door newDoor = new Door(1, "what?");
+    Battery battery = new Battery(1, "online", 4, 60, 6, 5);
+    public void Scenario1() {
 
-        System.out.println(newDoor.testList);
+        // ---------------------------------------------------------// Scenario 1
+        // //------------------------------------------------------------
+        // B1
+        battery.columnsList.get(1).elevatorsList.get(0).currentFloor = 20;
+        battery.columnsList.get(1).elevatorsList.get(0).direction = "down";
+        battery.columnsList.get(1).elevatorsList.get(0).floorRequestList.add(5);
+
+        // B2
+        battery.columnsList.get(1).elevatorsList.get(1).currentFloor = 3;
+        battery.columnsList.get(1).elevatorsList.get(1).direction = "up";
+        battery.columnsList.get(1).elevatorsList.get(1).floorRequestList.add(15);
+
+        // B3
+        battery.columnsList.get(1).elevatorsList.get(2).currentFloor = 13;
+        battery.columnsList.get(1).elevatorsList.get(2).direction = "down";
+        battery.columnsList.get(1).elevatorsList.get(2).floorRequestList.add(1);
+
+        // B4
+        battery.columnsList.get(1).elevatorsList.get(3).currentFloor = 15;
+        battery.columnsList.get(1).elevatorsList.get(3).direction = "down";
+        battery.columnsList.get(1).elevatorsList.get(3).floorRequestList.add(2);
+
+        // B5
+        battery.columnsList.get(1).elevatorsList.get(4).currentFloor = 6;
+        battery.columnsList.get(1).elevatorsList.get(4).direction = "down";
+        battery.columnsList.get(1).elevatorsList.get(4).floorRequestList.add(1);
+        battery.columnsList.get(1).elevatorsList.get(4).move();
+
+        // User at lobby want's to go to floor 20, Elevator 5 should be sent
+        System.out.println("User is at the lobby and wants to go to floor 20");
+        System.out.println("He enters 20 on the pannel");
+        battery.assignElevator(20, "up");
+    }
+
+    public void main(String[] args) {
+        System.out.println("-------------------------// TESTING //-----------------------------");
+
+        Scenario1();
+            
+            
+        
     }
 }

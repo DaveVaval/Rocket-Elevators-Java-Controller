@@ -1,21 +1,18 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 
 // Battery Class
 class Battery
 {
-    int ID;
-    String status;
-    int amountOfFloors;
-    int amountOfColumns;
-    int amountOfBasements;
-    int columnID;
-    int floorRequestButtonID;
-    ArrayList<Column> columnsList;
-    ArrayList<FloorRequestButton> floorRequestButtonsList;
+    public int ID;
+    public String status;
+    public int amountOfFloors;
+    public int amountOfColumns;
+    public int amountOfBasements;
+    public int columnID;
+    public int floorRequestButtonID;
+    public ArrayList<Column> columnsList;
+    public ArrayList<FloorRequestButton> floorRequestButtonsList;
     
     public Battery(int id, String status,int amountOfColumns, int amountOfFloors, int amountOfBasements, int amountOfElevatorPerColumn) // this is the battery constructor
     {
@@ -115,14 +112,14 @@ class Battery
 
 // Column class
 class Column{
-    int ID;
-    String status;
-    int amountOfFloors;
-    int amountOfElevators;
-    Boolean isBasement;
-    ArrayList<Integer> servedFloors;
-    ArrayList<Elevator> elevatorsList;
-    ArrayList<CallButton> callButtonsList;
+    public int ID;
+    public String status;
+    public int amountOfFloors;
+    public int amountOfElevators;
+    public Boolean isBasement;
+    public ArrayList<Integer> servedFloors;
+    public ArrayList<Elevator> elevatorsList;
+    public ArrayList<CallButton> callButtonsList;
 
     public Column(int id, String status, int amountOfFloors, int amountOfElevators, ArrayList<Integer> servedFloors, Boolean isBasement){ // This is the column constructor
         
@@ -258,13 +255,13 @@ class Column{
 
 // Elevator class
 class Elevator{
-    int ID;
-    String status;
-    int amountOfFloors;
-    String direction;
-    int currentFloor;
-    Door door;
-    ArrayList<Integer> floorRequestList; 
+    public int ID;
+    public String status;
+    public int amountOfFloors;
+    public String direction;
+    public int currentFloor;
+    public Door door;
+    public ArrayList<Integer> floorRequestList; 
 
     public Elevator(int id, String status, int amountOfFloors, int currentFloor){ // Elevator Constructor
         this.ID = id;
@@ -317,10 +314,10 @@ class Elevator{
 
 // Call Button class
 class CallButton{
-    int ID;
-    String status;
-    int floor;
-    String direction;
+    public int ID;
+    public String status;
+    public int floor;
+    public String direction;
 
     public CallButton(int id, String status, int floor, String direction){
         this.ID = id;
@@ -333,9 +330,9 @@ class CallButton{
 
 // Floor request button class
 class FloorRequestButton{
-    int ID;
-    String status;
-    int floor;
+    public int ID;
+    public String status;
+    public int floor;
 
     public FloorRequestButton(int id, String status, int floor){
         this.ID = id;
@@ -360,49 +357,43 @@ class Door {
 
 // Main Program
 public class commercial_controller {
-    Battery battery = new Battery(1, "online", 4, 60, 6, 5);
-    public void Scenario1() {
-
-        // ---------------------------------------------------------// Scenario 1
-        // //------------------------------------------------------------
-        // B1
-        battery.columnsList.get(1).elevatorsList.get(0).currentFloor = 20;
-        battery.columnsList.get(1).elevatorsList.get(0).direction = "down";
-        battery.columnsList.get(1).elevatorsList.get(0).floorRequestList.add(5);
-
-        // B2
-        battery.columnsList.get(1).elevatorsList.get(1).currentFloor = 3;
-        battery.columnsList.get(1).elevatorsList.get(1).direction = "up";
-        battery.columnsList.get(1).elevatorsList.get(1).floorRequestList.add(15);
-
-        // B3
-        battery.columnsList.get(1).elevatorsList.get(2).currentFloor = 13;
-        battery.columnsList.get(1).elevatorsList.get(2).direction = "down";
-        battery.columnsList.get(1).elevatorsList.get(2).floorRequestList.add(1);
-
-        // B4
-        battery.columnsList.get(1).elevatorsList.get(3).currentFloor = 15;
-        battery.columnsList.get(1).elevatorsList.get(3).direction = "down";
-        battery.columnsList.get(1).elevatorsList.get(3).floorRequestList.add(2);
-
-        // B5
-        battery.columnsList.get(1).elevatorsList.get(4).currentFloor = 6;
-        battery.columnsList.get(1).elevatorsList.get(4).direction = "down";
-        battery.columnsList.get(1).elevatorsList.get(4).floorRequestList.add(1);
-        battery.columnsList.get(1).elevatorsList.get(4).move();
-
-        // User at lobby want's to go to floor 20, Elevator 5 should be sent
-        System.out.println("User is at the lobby and wants to go to floor 20");
-        System.out.println("He enters 20 on the pannel");
-        battery.assignElevator(20, "up");
-    }
-
-    public void main(String[] args) {
+    
+    public static void main(String[] args) {
         System.out.println("-------------------------// TESTING //-----------------------------");
+        Battery battery = new Battery(1, "online", 4, 60, 6, 5);
+        
+        // //--------------// SCENARIO 1 //-----------------------
+        // // B1
+        // battery.columnsList.get(1).elevatorsList.get(0).currentFloor = 20;
+        // battery.columnsList.get(1).elevatorsList.get(0).direction = "down";
+        // battery.columnsList.get(1).elevatorsList.get(0).floorRequestList.add(5);
+    
+        // // B2
+        // battery.columnsList.get(1).elevatorsList.get(1).currentFloor = 3;
+        // battery.columnsList.get(1).elevatorsList.get(1).direction = "up";
+        // battery.columnsList.get(1).elevatorsList.get(1).floorRequestList.add(15);
+    
+        // // B3
+        // battery.columnsList.get(1).elevatorsList.get(2).currentFloor = 13;
+        // battery.columnsList.get(1).elevatorsList.get(2).direction = "down";
+        // battery.columnsList.get(1).elevatorsList.get(2).floorRequestList.add(1);
+    
+        // // B4
+        // battery.columnsList.get(1).elevatorsList.get(3).currentFloor = 15;
+        // battery.columnsList.get(1).elevatorsList.get(3).direction = "down";
+        // battery.columnsList.get(1).elevatorsList.get(3).floorRequestList.add(2);
+    
+        // // B5
+        // battery.columnsList.get(1).elevatorsList.get(4).currentFloor = 6;
+        // battery.columnsList.get(1).elevatorsList.get(4).direction = "down";
+        // battery.columnsList.get(1).elevatorsList.get(4).floorRequestList.add(1);
+        // battery.columnsList.get(1).elevatorsList.get(4).move();
+    
+        //  // User at lobby want's to go to floor 20, Elevator 5 should be sent
+        // System.out.println("User is at the lobby and wants to go to floor 20");
+        // System.out.println("He enters 20 on the pannel");
+        // battery.assignElevator(20, "up");
 
-        Scenario1();
-            
-            
         
     }
 }

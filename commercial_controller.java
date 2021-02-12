@@ -101,7 +101,7 @@ class Battery
         elevator.move();
         elevator.openDoors();
         System.out.println(".........");
-        System.out.println("Elevator: " + elevator.ID + " from column: " + column.ID + "is sent to lobby");
+        System.out.println("Elevator: " + elevator.ID + " from column: " + column.ID + " is sent to lobby");
         System.out.println("He enters the elevator");
         System.out.println(".........");
         System.out.println("Elevator reached floor: " + elevator.currentFloor);

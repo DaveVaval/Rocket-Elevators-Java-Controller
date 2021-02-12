@@ -1,117 +1,116 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
-import java.util.Hashtable;
 import java.util.HashMap;
 
 
 // Battery Class
-// public class Battery
-// {
-//     public int ID;
-//     public string status;
-//     public int amountOfFloors;
-//     public int amountOfColumns;
-//     public int amountOfBasements;
-//     public int columnID;
-//     public int floorRequestButtonID;
-//     public List<Column> columnsList;
-//     public List<FloorRequestButton> floorRequestButtonsList;
+class Battery
+{
+    int ID;
+    String status;
+    int amountOfFloors;
+    int amountOfColumns;
+    int amountOfBasements;
+    int columnID;
+    int floorRequestButtonID;
+    ArrayList<Column> columnsList;
+    ArrayList<FloorRequestButton> floorRequestButtonsList;
     
-//     public Battery(int id, string status,int amountOfColumns, int amountOfFloors, int amountOfBasements, int amountOfElevatorPerColumn) // this is the battery constructor
-//     {
-//         this.ID = id;
-//         this.amountOfColumns = amountOfColumns;
-//         this.status = status;
-//         this.amountOfFloors = amountOfFloors;
-//         this.amountOfBasements = amountOfBasements;
-//         this.columnsList = new List<Column>();
-//         this.floorRequestButtonsList = new List<FloorRequestButton>();
-//         this.columnID = 1;
-//         this.floorRequestButtonID = 1;
+    public Battery(int id, String status,int amountOfColumns, int amountOfFloors, int amountOfBasements, int amountOfElevatorPerColumn) // this is the battery constructor
+    {
+        this.ID = id;
+        this.amountOfColumns = amountOfColumns;
+        this.status = status;
+        this.amountOfFloors = amountOfFloors;
+        this.amountOfBasements = amountOfBasements;
+        this.columnsList = new ArrayList<Column>();
+        this.floorRequestButtonsList = new ArrayList<FloorRequestButton>();
+        this.columnID = 1;
+        this.floorRequestButtonID = 1;
 
-//         if (this.amountOfBasements > 0){
-//             createBasementFloorRequestButtons(amountOfBasements);
-//             createBasementColumn(this.amountOfBasements, amountOfElevatorPerColumn);
-//             amountOfColumns--;
-//         }
-//         createFloorRequestButtons(amountOfFloors);
-//         createColumns(amountOfColumns, this.amountOfFloors, this.amountOfBasements, amountOfElevatorPerColumn);
-//     }
+        if (this.amountOfBasements > 0){
+            createBasementFloorRequestButtons(amountOfBasements);
+            createBasementColumn(this.amountOfBasements, amountOfElevatorPerColumn);
+            amountOfColumns--;
+        }
+        createFloorRequestButtons(amountOfFloors);
+        createColumns(amountOfColumns, this.amountOfFloors, this.amountOfBasements, amountOfElevatorPerColumn);
+    }
 
-//     public void createBasementColumn(int amountOfBasements, int amountOfElevatorPerColumn){
-//         List<int> servedFloors = new List<int>();
-//         int floor = -1;
+    public void createBasementColumn(int amountOfBasements, int amountOfElevatorPerColumn){
+        ArrayList<Integer> servedFloors = new ArrayList<Integer>();
+        int floor = -1;
 
-//         for (int i = 0; i < amountOfBasements; i++){
-//             servedFloors.Add(floor);
-//             floor--;
-//         }
-//         columnsList.Add(new Column(columnID, "online", amountOfBasements, amountOfElevatorPerColumn, servedFloors, true));
-//         columnID++;
-//     }
+        for (int i = 0; i < amountOfBasements; i++){
+            servedFloors.add(floor);
+            floor--;
+        }
+        columnsList.add(new Column(columnID, "online", amountOfBasements, amountOfElevatorPerColumn, servedFloors, true));
+        columnID++;
+    }
 
-//     public void createColumns(int amountOfColumns, int amountOfFloors, int amountOfBasements, int amountOfElevatorPerColumn){
-//         int amountOfFloorsPerColumn = (int)Math.Ceiling((double)amountOfFloors / amountOfColumns);
-//         int floor = 1;
+    public void createColumns(int amountOfColumns, int amountOfFloors, int amountOfBasements, int amountOfElevatorPerColumn){
+        int amountOfFloorsPerColumn = (int)Math.ceil(Double.valueOf(amountOfFloors / amountOfColumns));
+        int floor = 1;
 
-//         for (int i = 1; i <= amountOfColumns; i++){ // i = 1 fixed the issue of the amount of columns
-//             List<int> servedFloors = new List<int>(); 
-//             for (int n = 0; n < amountOfFloorsPerColumn; n++){
-//                 if(floor <= amountOfFloors){
-//                     servedFloors.Add(floor);
-//                     floor++;
-//                 }
-//             }
-//             columnsList.Add(new Column(columnID, "online", amountOfFloors, amountOfElevatorPerColumn, servedFloors, false));
-//             columnID++;
-//         }
-//     }
+        for (int i = 1; i <= amountOfColumns; i++){ // i = 1 fixed the issue of the amount of columns
+            ArrayList<Integer> servedFloors = new ArrayList<Integer>(); 
+            for (int n = 0; n < amountOfFloorsPerColumn; n++){
+                if(floor <= amountOfFloors){
+                    servedFloors.add(floor);
+                    floor++;
+                }
+            }
+            columnsList.add(new Column(columnID, "online", amountOfFloors, amountOfElevatorPerColumn, servedFloors, false));
+            columnID++;
+        }
+    }
 
-//     public void createFloorRequestButtons(int amountOfFloors){
-//         int buttonFloor = 1;
-//         for (int i = 1; i <= amountOfFloors; i++){
-//             floorRequestButtonsList.Add(new FloorRequestButton(floorRequestButtonID, "off", buttonFloor));
-//             floorRequestButtonID++;
-//             buttonFloor++;
-//         }
-//     }
+    public void createFloorRequestButtons(int amountOfFloors){
+        int buttonFloor = 1;
+        for (int i = 1; i <= amountOfFloors; i++){
+            floorRequestButtonsList.add(new FloorRequestButton(floorRequestButtonID, "off", buttonFloor));
+            floorRequestButtonID++;
+            buttonFloor++;
+        }
+    }
 
-//     public void createBasementFloorRequestButtons(int amountOfBasements){
-//         int buttonFloor = -1;
-//         for (int i = 1; i <= amountOfBasements; i++){
-//             floorRequestButtonsList.Add(new FloorRequestButton(floorRequestButtonID, "off", buttonFloor));
-//             buttonFloor--;
-//             floorRequestButtonID++;
-//         }
-//     }
+    public void createBasementFloorRequestButtons(int amountOfBasements){
+        int buttonFloor = -1;
+        for (int i = 1; i <= amountOfBasements; i++){
+            floorRequestButtonsList.add(new FloorRequestButton(floorRequestButtonID, "off", buttonFloor));
+            buttonFloor--;
+            floorRequestButtonID++;
+        }
+    }
 
-//     public Column findBestColumn(int requestedFloor){
-//         Column col = null;
-//         foreach (Column column in columnsList){
-//             if(column.servedFloors.Contains(requestedFloor)){
-//                 col = column;
-//             }
-//         }
-//         return col;
-//     }
+    public Column findBestColumn(int requestedFloor){
+        Column col = null;
+        for (Column column : columnsList){
+            if(column.servedFloors.contains(requestedFloor)){
+                col = column;
+            }
+        }
+        return col;
+    }
 
-//     // This function will return the best elevator from the best column to the user
-//     public void assignElevator(int requestedFloor, string direction){ 
-//         Column column = findBestColumn(requestedFloor); // return?
-//         Elevator elevator = column.findBestElevator(1, direction); // return?
-//         elevator.floorRequestList.Add(requestedFloor);
-//         elevator.sortFloorList();
-//         elevator.move();
-//         elevator.openDoors();
-//         Console.WriteLine(".........");
-//         Console.WriteLine("Elevator {0} from column {1} is sent to lobby", elevator.ID, column.ID);
-//         Console.WriteLine("He enters the elevator");
-//         Console.WriteLine(".........");
-//         Console.WriteLine("Elevator reached floor: " + elevator.currentFloor);
-//         Console.WriteLine("He gets out...");
-//     }
-// }
+    // This function will return the best elevator from the best column to the user
+    public void assignElevator(int requestedFloor, String direction){ 
+        Column column = findBestColumn(requestedFloor); // return?
+        Elevator elevator = column.findBestElevator(1, direction); // return?
+        elevator.floorRequestList.add(requestedFloor);
+        elevator.sortFloorList();
+        elevator.move();
+        elevator.openDoors();
+        // Console.WriteLine(".........");
+        // Console.WriteLine("Elevator {0} from column {1} is sent to lobby", elevator.ID, column.ID);
+        // Console.WriteLine("He enters the elevator");
+        // Console.WriteLine(".........");
+        // Console.WriteLine("Elevator reached floor: " + elevator.currentFloor);
+        // Console.WriteLine("He gets out...");
+    }
+}
 
 
 // Column class
